@@ -1,0 +1,209 @@
+/* src/styles/cyberpunk.css */
+body {
+  background-color: #000;
+  color: #ccc;
+  font-family: 'Courier New', monospace;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, rgba(76, 0, 130, 0.1), transparent);
+}
+
+.header {
+  background-color: #111;
+  border-bottom: 1px solid #0be0e0;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(11, 224, 224, 0.2);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app-title {
+  color: #0be0e0;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+}
+
+.blink {
+  animation: blink 1s infinite;
+  color: #ff41a3;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid;
+  background-color: transparent;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-cyan {
+  border-color: #0be0e0;
+}
+
+.btn-pink {
+  border-color: #ff41a3;
+}
+
+.btn-active-cyan {
+  background-color: rgba(11, 224, 224, 0.2);
+  color: #0be0e0;
+  box-shadow: 0 0 8px rgba(11, 224, 224, 0.2);
+}
+
+.btn-active-pink {
+  background-color: rgba(255, 65, 163, 0.2);
+  color: #ff41a3;
+  box-shadow: 0 0 8px rgba(255, 65, 163, 0.2);
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.panel {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 4px;
+  background-color: #111;
+}
+
+.panel-cyan {
+  border: 1px solid rgba(11, 224, 224, 0.5);
+  box-shadow: 0 0 10px rgba(11, 224, 224, 0.1);
+}
+
+.panel-pink {
+  border: 1px solid rgba(255, 65, 163, 0.5);
+  box-shadow: 0 0 10px rgba(255, 65, 163, 0.1);
+}
+
+.panel-title {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.panel-title-cyan {
+  color: #0be0e0;
+}
+
+.panel-title-pink {
+  color: #ff41a3;
+}
+
+.input-group {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.input-field {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(11, 224, 224, 0.5);
+  border-right: none;
+  background-color: #181818;
+  color: #0be0e0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.input-field::placeholder {
+  color: #555;
+}
+
+.input-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #003333;
+  border: 1px solid rgba(11, 224, 224, 0.5);
+  color: #0be0e0;
+  cursor: pointer;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.input-button:hover {
+  background-color: #004444;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s;
+}
+
+.todo-item-edit {
+  border: 1px solid rgba(11, 224, 224, 0.3);
+  background-color: rgba(11, 224, 224, 0.05);
+}
+
+.todo-item-view {
+  border: 1px solid rgba(255, 65, 163, 0.3);
+  background-color: rgba(255, 65, 163, 0.05);
+}
+
+.todo-text-edit {
+  color: #bbeeff;
+}
+
+.todo-text-view {
+  color: #ffbbdd;
+}
+
+.delete-btn {
+  color: #ff3333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s, color 0.3s;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  color: #ff5555;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 1rem;
+  border: 1px dashed #444;
+  color: #555;
+  font-style: italic;
+}
