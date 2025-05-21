@@ -1,15 +1,23 @@
 import React from 'react';
 import TodoItem from './TodoItem';
+import { Todo } from '../../types';
 
-const TodoList = ({ todos = [], onDelete, readonly }) => {
-  // Add a safety check to handle if todos is undefined
+interface TodoListProps {
+  todos: Todo[];
+  onDelete?: (id: number) => void;
+  readonly: boolean;
+}
+
+const TodoList: React.FC<TodoListProps> = ({ todos = [], onDelete, readonly }) => {
   const todoArray = Array.isArray(todos) ? todos : [];
   
-  const renderEmptyState = () => (
+  // Change JSX.Element to React.ReactElement
+  const renderEmptyState = (): React.ReactElement => (
     <p className="text-gray-500 italic border border-dashed border-gray-700 p-4 text-center">NO TASKS DETECTED IN SYSTEM</p>
   );
   
-  const renderTodoItems = () => (
+  // Change JSX.Element to React.ReactElement
+  const renderTodoItems = (): React.ReactElement => (
     <ul className="space-y-2">
       {todoArray.map(todo => (
         <TodoItem 

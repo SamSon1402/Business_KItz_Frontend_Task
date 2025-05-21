@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Header = () => {
+const Header: React.FC = () => {
   const location = useLocation();
   const isEditMode = location.pathname === '/';
   const isViewMode = location.pathname === '/view';

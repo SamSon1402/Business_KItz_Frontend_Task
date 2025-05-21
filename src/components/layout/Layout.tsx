@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen bg-black text-gray-300 font-mono">
       <div className="absolute inset-0 bg-black opacity-80 z-0">

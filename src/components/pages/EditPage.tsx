@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import TodoList from '../todo/TodoList';
 import useInputField from '../../hooks/useInputField';
+import { Todo } from '../../types';
 
-const EditPage = ({ todos, onAddTodo, onDeleteTodo }) => {
+interface EditPageProps {
+  todos: Todo[];
+  onAddTodo: (text: string) => void;
+  onDeleteTodo: (id: number) => void;
+}
+
+const EditPage: React.FC<EditPageProps> = ({ todos, onAddTodo, onDeleteTodo }) => {
   const { input, handleInputChange, clearInput } = useInputField();
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     onAddTodo(input);
     clearInput();
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       handleSubmit();
     }

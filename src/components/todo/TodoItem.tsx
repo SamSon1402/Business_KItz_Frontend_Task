@@ -1,12 +1,14 @@
 import React from 'react';
+import { Todo } from '../../types';
 
-const TodoItem = ({ todo, onDelete, readonly }) => {
-  // Add a safety check to prevent accessing properties of undefined
-  if (!todo) {
-    return <li className="p-3 border border-red-500 rounded">Error: Invalid todo item</li>;
-  }
+interface TodoItemProps {
+  todo: Todo;
+  onDelete?: (id: number) => void;
+  readonly: boolean;
+}
 
-  const handleDelete = () => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete, readonly }) => {
+  const handleDelete = (): void => {
     onDelete && onDelete(todo.id);
   };
 
