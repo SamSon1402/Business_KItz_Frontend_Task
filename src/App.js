@@ -1,103 +1,61 @@
 import React from 'react';
-import './styles/cyberpunk.css'; // Import the custom CSS
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/layout/Layout';
+import Header from './components/layout/Header';
+import EditPage from './components/pages/EditPage';
+import ViewPage from './components/pages/ViewPage';
 import useTodoManager from './hooks/useTodoManager';
-import useNavigation from './hooks/useNavigation';
-import useInputField from './hooks/useInputField';
+import './styles/index.css';
 
 function App() {
+  // Use the todo manager hook to manage todo state across routes
   const { todos, addTodo, deleteTodo } = useTodoManager();
-  const { page, navigateTo } = useNavigation();
-  const { input, handleInputChange, clearInput } = useInputField();
-
-  const handleSubmit = () => {
-    addTodo(input);
-    clearInput();
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit();
-    }
-  };
 
   return (
-    <div className="app-container">
-      <header className="header">
-        <div className="header-content">
-          <h1 className="app-title">BusinessKitz<span className="blink">_</span></h1>
-          <nav className="nav-buttons">
-            <button 
-              onClick={() => navigateTo('edit')}
-              className={`btn btn-cyan ${page === 'edit' ? 'btn-active-cyan' : ''}`}
-            >
-              EDIT.SYS
-            </button>
-            <button 
-              onClick={() => navigateTo('view')}
-              className={`btn btn-pink ${page === 'view' ? 'btn-active-pink' : ''}`}
-            >
-              VIEW.SYS
-            </button>
-          </nav>
+    <BrowserRouter>
+      <div className="flex flex-col min-h-screen bg-black text-gray-300 font-mono">
+        <div className="absolute inset-0 bg-black opacity-80 z-0">
+          <div className="h-full w-full bg-gradient-to-b from-purple-900/10 to-transparent"></div>
         </div>
-      </header>
-
-      <main className="main-content">
-        {page === 'edit' ? (
-          <div className="panel panel-cyan">
-            <h2 className="panel-title panel-title-cyan">⟩ TASK TERMINAL</h2>
-            
-            <div className="input-group">
-              <input
-                type="text"
-                value={input}
-                onChange={handleInputChange}
-                placeholder="Enter new objective..."
-                className="input-field"
-                onKeyPress={handleKeyPress}
+        <div className="relative z-10 flex flex-col min-h-screen">
+          {/* Header is outside the Routes so it appears on all pages */}
+          <Header />
+          
+          {/* Main content area with routes */}
+          <main className="flex-1 container mx-auto p-4">
+            <Routes>
+              {/* Edit mode on the root path */}
+              <Route 
+                path="/" 
+                element={
+                  <EditPage 
+                    todos={todos} 
+                    onAddTodo={addTodo} 
+                    onDeleteTodo={deleteTodo} 
+                  />
+                } 
               />
-              <button onClick={handleSubmit} className="input-button">
-                UPLOAD
-              </button>
-            </div>
-            
-            {todos.length === 0 ? (
-              <p className="empty-state">NO TASKS DETECTED IN SYSTEM</p>
-            ) : (
-              <ul className="todo-list">
-                {todos.map(todo => (
-                  <li key={todo.id} className="todo-item todo-item-edit">
-                    <span className="todo-text-edit">{todo.text}</span>
-                    <button
-                      onClick={() => deleteTodo(todo.id)}
-                      className="delete-btn"
-                    >
-                      DELETE
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ) : (
-          <div className="panel panel-pink">
-            <h2 className="panel-title panel-title-pink">⟩ ARCHIVE MODE [READ-ONLY]</h2>
-            
-            {todos.length === 0 ? (
-              <p className="empty-state">NO TASKS DETECTED IN SYSTEM</p>
-            ) : (
-              <ul className="todo-list">
-                {todos.map(todo => (
-                  <li key={todo.id} className="todo-item todo-item-view">
-                    <span className="todo-text-view">{todo.text}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
-      </main>
-    </div>
+              
+              {/* View mode on /view path */}
+              <Route 
+                path="/view" 
+                element={
+                  <ViewPage 
+                    todos={todos} 
+                  />
+                } 
+              />
+              
+              {/* Redirect any unknown paths to the home page */}
+              <Route 
+                path="*" 
+                element={<Navigate to="/" />} 
+              />
+            </Routes>
+          </main>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
