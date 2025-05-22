@@ -1,12 +1,10 @@
 import React from 'react';
 import TodoList from '../todo/TodoList';
-import { Todo } from '../../types';
+import { useAppSelector } from '../../hooks/redux';
 
-interface ViewPageProps {
-  todos: Todo[];
-}
+const ViewPage: React.FC = () => {
+  const todos = useAppSelector((state) => state.todos.todos);
 
-const ViewPage: React.FC<ViewPageProps> = ({ todos }) => {
   return (
     <div className="bg-gray-900 border border-pink-500/50 rounded shadow-lg shadow-pink-500/10 p-6 mt-8">
       <h2 className="text-lg font-semibold mb-4 text-pink-400 flex items-center">

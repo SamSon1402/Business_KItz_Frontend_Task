@@ -1,20 +1,21 @@
 import React, { KeyboardEvent } from 'react';
 import TodoList from '../todo/TodoList';
 import useInputField from '../../hooks/useInputField';
-import { Todo } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { addTodo, deleteTodo } from '../../store/slices/todoSlice';
 
-interface EditPageProps {
-  todos: Todo[];
-  onAddTodo: (text: string) => void;
-  onDeleteTodo: (id: number) => void;
-}
-
-const EditPage: React.FC<EditPageProps> = ({ todos, onAddTodo, onDeleteTodo }) => {
+const EditPage: React.FC = () => {
   const { input, handleInputChange, clearInput } = useInputField();
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector((state) => state.todos.todos);
 
   const handleSubmit = (): void => {
-    onAddTodo(input);
+    dispatch(addTodo(input));
     clearInput();
+  };
+
+  const handleDeleteTodo = (id: number): void => {
+    dispatch(deleteTodo(id));
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>): void => {
@@ -46,7 +47,7 @@ const EditPage: React.FC<EditPageProps> = ({ todos, onAddTodo, onDeleteTodo }) =
         </button>
       </div>
       
-      <TodoList todos={todos} onDelete={onDeleteTodo} readonly={false} />
+      <TodoList todos={todos} onDelete={handleDeleteTodo} readonly={false} />
     </div>
   );
 };
